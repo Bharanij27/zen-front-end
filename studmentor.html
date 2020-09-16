@@ -97,7 +97,7 @@
         }
 
         async function init() {
-            let mentorApi = await fetch('http://localhost:3030/mentors');
+            let mentorApi = await fetch('https://zen-class-backend-server.herokuapp.com/mentors');
             mentorData = await mentorApi.json();
             updateSelect(mentorData, 'mentor');
         }

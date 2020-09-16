@@ -67,9 +67,9 @@
                 let mentorname = document.getElementById('mentor').value;
 
                 let data = {
-                    student: studname
+                    mentorName: mentorname
                 };
-                fetch(`http://localhost:3030/update/${mentorname}`, {
+                fetch(`https://zen-class-backend-server.herokuapp.com/assign/${studname}`, {
                     method: 'put',
                     body: JSON.stringify(data),
                     headers: {
@@ -83,10 +83,10 @@
         }
 
         async function init() {
-            let studentApi = await fetch('http://localhost:3030/students');
+            let studentApi = await fetch('https://zen-class-backend-server.herokuapp.com/students');
             let studentData = await studentApi.json();
 
-            let mentorApi = await fetch('http://localhost:3030/mentors');
+            let mentorApi = await fetch('https://zen-class-backend-server.herokuapp.com/mentors');
             let mentorData = await mentorApi.json();
             studentData = studentData.filter(student => !student.mentor);
 
