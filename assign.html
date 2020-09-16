@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zen Class</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        button {
+            position: relative;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/index.html">Home</a>
+                    <a class="nav-link" href="/student.html">New Student</a>
+                    <a class="nav-link" href="/mentor.html">New Mentor</a>
+                    <a class="nav-link active" href="/assign.html">Assign Mentor</a>
+                    <a class="nav-link" href="/change.html">Change Mentor</a>
+                    <a class="nav-link" href="/studmentor.html">Student List</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container mt-5">
+        <form class="middle" onsubmit="updateDb()">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="new-student-name">Student Name</label>
+                        <select name="student-name" id="student">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="new-mentor-name">Mentor Name</label>
+                        <select name="mentor-name" id="mentor">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Assign"></button>
+        </form>
+    </div>
+    <script>
+        function updateSelect(data, id) {
+            let select = document.getElementById(id);
+            data.forEach(element => {
+                let opt = document.createElement('option');
+                opt.innerText = element.name;
+                select.append(opt)
+            })
+        }
+
+        function updateDb() {
+            try {
+                debugger
+                let studname = document.getElementById('student').value;
+                let mentorname = document.getElementById('mentor').value;
+
+                let data = {
+                    student: studname
+                };
+                fetch(`http://localhost:3030/update/${mentorname}`, {
+                    method: 'put',
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                alert('data updated')
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        async function init() {
+            let studentApi = await fetch('http://localhost:3030/students');
+            let studentData = await studentApi.json();
+
+            let mentorApi = await fetch('http://localhost:3030/mentors');
+            let mentorData = await mentorApi.json();
+            studentData = studentData.filter(student => !student.mentor);
+
+            updateSelect(studentData, 'student');
+            updateSelect(mentorData, 'mentor');
+        }
+        init();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

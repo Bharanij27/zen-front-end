@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zen Class</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .middle {
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/index.html">Home</a>
+                    <a class="nav-link" href="/student.html">New Student</a>
+                    <a class="nav-link active" href="/mentor.html">New Mentor</a>
+                    <a class="nav-link" href="/assign.html">Assign Mentor</a>
+                    <a class="nav-link" href="/change.html">Change Mentor</a>
+                    <a class="nav-link" href="/studmentor.html">Student List</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container mt-5">
+        <form class="middle" onsubmit="updateDb()">
+            <div class="form-group">
+                <label for="new-student-name">Mentor Name</label>
+                <input type="text" class="form-control" id="new-entry" required>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Create"></button>
+        </form>
+    </div>
+    <script>
+        async function updateDb() {
+            try {
+                let name = document.getElementById('new-entry').value;
+                let data = {
+                    "name": name
+                };
+                fetch('http://localhost:3030/mentor', {
+                    method: 'post',
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                alert('data updated')
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
