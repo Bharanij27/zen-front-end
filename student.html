@@ -44,7 +44,7 @@
                 let data = {
                     "name": name
                 };
-                await fetch('https://zen-class-backend-server.herokuapp.com/student', {
+                fetch('https://zen-class-backend-server.herokuapp.com/student', {
                     method: 'post',
                     body: JSON.stringify(data),
                     headers: {
