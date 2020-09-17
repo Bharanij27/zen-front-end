@@ -50,8 +50,10 @@
                     headers: {
                         "Content-Type": "application/json"
                     }
+                }).then(res => {
+                    alert('data updated')
                 })
-                alert('data updated')
+
             } catch (error) {
                 console.log(error)
             }
