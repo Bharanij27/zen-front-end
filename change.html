@@ -84,10 +84,10 @@
 
         async function init() {
             let studentApi = await fetch('https://zen-class-backend-server.herokuapp.com/students');
-            let studentData = [] || await studentApi.json();
+            let studentData = await studentApi.json();
 
             let mentorApi = await fetch('https://zen-class-backend-server.herokuapp.com/mentors');
-            let mentorData = [] || await mentorApi.json();
+            let mentorData = await mentorApi.json();
 
             updateSelect(studentData, 'student');
             updateSelect(mentorData, 'mentor');
